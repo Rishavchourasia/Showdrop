@@ -1,0 +1,78 @@
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  color: var(--color-text);
+  text-decoration: none !important;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--duration-base) var(--ease-out);
+}
+
+.link:hover .card {
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 1px rgb(255 255 255 / 12%);
+}
+
+.hoverBar {
+  position: absolute;
+  inset: auto 10px 10px;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-highlight);
+  color: var(--color-highlight-contrast);
+  font-weight: var(--font-weight-semibold);
+  transform: translateY(130%);
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+.link:hover .hoverBar,
+.link:focus-visible .hoverBar {
+  transform: translateY(0);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 2px;
+}
+
+.skeletonPoster {
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 0%,
+    var(--color-surface-muted) 50%,
+    var(--color-surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+%line {
+  display: block;
+  height: 12px;
+  margin-top: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.lineLong {
+  @extend %line;
+  width: 80%;
+}
+.lineShort {
+  @extend %line;
+  width: 50%;
+}

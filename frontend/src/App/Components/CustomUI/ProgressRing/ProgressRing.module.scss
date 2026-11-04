@@ -1,0 +1,37 @@
+.ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+}
+
+.track {
+  fill: none;
+  stroke: var(--color-surface-muted);
+}
+
+.highlight,
+.danger {
+  fill: none;
+  transition: stroke var(--duration-slow) var(--ease-out);
+}
+.highlight {
+  stroke: var(--color-highlight);
+  filter: drop-shadow(0 0 6px rgb(198 255 61 / 45%));
+}
+.danger {
+  stroke: var(--color-danger);
+  filter: drop-shadow(0 0 6px rgb(255 94 91 / 45%));
+}
+
+.center {
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const AUTH_ERROR_CLEARED = 'AUTH_ERROR_CLEARED';
+export const LOGOUT = 'LOGOUT';
+export const SESSION_EXPIRED = 'SESSION_EXPIRED';

@@ -1,0 +1,182 @@
+/*
+ * DESIGN TOKENS — "Midnight Marquee"
+ *
+ * The single source of truth for colour, type, space and motion. Components
+ * never hard-code values; they use the SEMANTIC tokens (--color-accent ...), so
+ * a rebrand is an edit to this file only.
+ *
+ * Direction: dark-first like a theatre before the curtain rises. Ultraviolet is
+ * the brand, acid lime is the "go" colour (selected seats, success, CTAs to pay),
+ * and each category gets its own gradient for the generated poster art.
+ *
+ *   1. Palette   raw colours, never used directly in components
+ *   2. Semantic  what a colour is FOR
+ */
+:root {
+  /* ---------- 1. Palette ---------- */
+  --uv-300: #b8a6ff;
+  --uv-400: #9b85ff;
+  --uv-500: #7c5cff;
+  --uv-600: #6440f5;
+  --uv-700: #4d2bd6;
+  --lime-300: #e2ff8a;
+  --lime-400: #d4ff52;
+  --lime-500: #c6ff3d;
+  --lime-600: #a3d91c;
+  --coral-400: #ff8a7a;
+  --coral-500: #ff5e5b;
+  --amber-400: #ffc24b;
+  --cyan-400: #4be1ff;
+  --pink-400: #ff6ad5;
+  --ink-0: #ffffff;
+  --ink-50: #f4f3fb;
+  --ink-100: #e7e5f3;
+  --ink-200: #c9c6dd;
+  --ink-400: #8e8aa8;
+  --ink-500: #6d6987;
+  --ink-700: #2a2740;
+  --ink-800: #1b1930;
+  --ink-850: #141226;
+  --ink-900: #0d0b1c;
+  --ink-950: #08070f;
+
+  /* ---------- 2. Semantic colours (dark is the default theme) ---------- */
+  color-scheme: dark;
+  --color-bg: var(--ink-950);
+  --color-surface: rgb(255 255 255 / 4%);
+  --color-surface-solid: var(--ink-850);
+  --color-surface-raised: var(--ink-800);
+  --color-surface-muted: rgb(255 255 255 / 7%);
+  --color-glass: rgb(20 18 38 / 62%);
+  --color-border: rgb(255 255 255 / 9%);
+  --color-border-strong: rgb(255 255 255 / 18%);
+  --color-text: var(--ink-50);
+  --color-text-secondary: var(--ink-200);
+  --color-text-muted: var(--ink-400);
+  --color-accent: var(--uv-500);
+  --color-accent-hover: var(--uv-400);
+  --color-accent-contrast: var(--ink-0);
+  --color-accent-soft: rgb(124 92 255 / 16%);
+  --color-highlight: var(--lime-500); // the "go" colour
+  --color-highlight-contrast: var(--ink-950);
+  --color-success: var(--lime-500);
+  --color-success-soft: rgb(198 255 61 / 12%);
+  --color-danger: var(--coral-500);
+  --color-danger-soft: rgb(255 94 91 / 14%);
+  --color-warning: var(--amber-400);
+  --color-warning-soft: rgb(255 194 75 / 12%);
+  --color-info-soft: rgb(75 225 255 / 10%);
+  --color-focus: var(--lime-400);
+  --color-overlay: rgb(4 3 10 / 72%);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(120deg, var(--uv-600) 0%, var(--uv-500) 40%, var(--pink-400) 100%);
+  --gradient-go: linear-gradient(120deg, var(--lime-500), var(--lime-300));
+  --gradient-holo: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgb(255 106 213 / 35%) 36%,
+    rgb(75 225 255 / 35%) 46%,
+    rgb(198 255 61 / 35%) 56%,
+    transparent 72%
+  );
+
+  /* Category art palettes (used by PosterArt) */
+  --cat-movie-a: #3a1cff;
+  --cat-movie-b: #00d0ff;
+  --cat-concert-a: #ff2e88;
+  --cat-concert-b: #ffb800;
+  --cat-comedy-a: #c6ff3d;
+  --cat-comedy-b: #00c2a8;
+  --cat-theatre-a: #7a0bc0;
+  --cat-theatre-b: #ff5e5b;
+  --cat-music-a: #ff6ad5;
+  --cat-music-b: #7c5cff;
+
+  /* Seat map */
+  --seat-available-bg: rgb(255 255 255 / 4%);
+  --seat-available-border: rgb(255 255 255 / 26%);
+  --seat-hover: var(--uv-400);
+  --seat-selected: var(--lime-500);
+  --seat-held: var(--amber-400);
+  --seat-booked: rgb(255 255 255 / 8%);
+
+  /* ---------- Typography ---------- */
+  --font-display: 'Unbounded', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-md: 0.9375rem;
+  --font-size-lg: 1.0625rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.875rem;
+  --font-size-3xl: clamp(2.25rem, 4.5vw, 3.5rem);
+  --font-size-hero: clamp(2.6rem, 7vw, 5.75rem);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.08;
+  --line-height-base: 1.55;
+
+  /* ---------- Spacing, shape, elevation ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+  --shadow-sm: 0 1px 0 rgb(255 255 255 / 4%) inset;
+  --shadow-md: 0 1px 0 rgb(255 255 255 / 6%) inset, 0 10px 30px rgb(0 0 0 / 35%);
+  --shadow-lg: 0 1px 0 rgb(255 255 255 / 8%) inset, 0 30px 80px rgb(0 0 0 / 55%);
+  --glow-accent: 0 0 0 1px rgb(124 92 255 / 50%), 0 10px 40px rgb(124 92 255 / 35%);
+  --glow-highlight: 0 0 0 1px rgb(198 255 61 / 60%), 0 10px 40px rgb(198 255 61 / 30%);
+
+  /* ---------- Motion ---------- */
+  --duration-fast: 140ms;
+  --duration-base: 240ms;
+  --duration-slow: 420ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Layout ---------- */
+  --content-max-width: 1200px;
+  --topbar-height: 68px;
+  --blur-glass: saturate(1.6) blur(18px);
+}
+
+/* Optional light theme: same names, different values (opt in with <html data-theme="light">). */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: var(--ink-50);
+  --color-surface: rgb(13 11 28 / 3%);
+  --color-surface-solid: var(--ink-0);
+  --color-surface-raised: var(--ink-0);
+  --color-surface-muted: rgb(13 11 28 / 6%);
+  --color-glass: rgb(255 255 255 / 70%);
+  --color-border: rgb(13 11 28 / 10%);
+  --color-border-strong: rgb(13 11 28 / 20%);
+  --color-text: var(--ink-900);
+  --color-text-secondary: var(--ink-700);
+  --color-text-muted: var(--ink-500);
+  --color-accent: var(--uv-600);
+  --color-accent-hover: var(--uv-700);
+  --color-highlight: var(--lime-600);
+  --color-success: #3f8f00;
+  --color-overlay: rgb(13 11 28 / 45%);
+  --seat-available-bg: var(--ink-0);
+  --seat-available-border: rgb(13 11 28 / 25%);
+  --seat-booked: rgb(13 11 28 / 10%);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 8px 24px rgb(13 11 28 / 10%);
+  --shadow-lg: 0 24px 60px rgb(13 11 28 / 18%);
+}

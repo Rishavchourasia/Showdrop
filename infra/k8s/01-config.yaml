@@ -1,0 +1,25 @@
+# ConfigMap = non-secret settings; Secret = sensitive ones (passwords, keys).
+# Pods read them as environment variables -- the same env vars docker-compose set.
+# (Secrets are only base64-encoded, not encrypted, by default. Real clusters add
+#  encryption at rest or an external secret manager.)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bys-config
+  namespace: bys
+data:
+  DB_URL: jdbc:postgresql://postgres:5432/bys
+  DB_USER: bys
+  REDIS_HOST: redis
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bys-secrets
+  namespace: bys
+type: Opaque
+stringData:                      # stringData lets us write plain text; k8s stores it base64-encoded
+  POSTGRES_PASSWORD: bys
+  DB_PASSWORD: bys
+  JWT_SECRET: k8s-dev-secret-change-me-k8s-dev-secret-change-me-0123456789

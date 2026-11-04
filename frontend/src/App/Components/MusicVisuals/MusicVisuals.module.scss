@@ -1,0 +1,49 @@
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+
+  span {
+    width: 4px;
+    height: 100%;
+    border-radius: 2px;
+    background: var(--color-highlight);
+    transform-origin: bottom;
+    animation: eq-bounce 900ms ease-in-out infinite alternate;
+  }
+}
+
+@keyframes eq-bounce {
+  0% {
+    transform: scaleY(0.2);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.vinyl {
+  position: relative;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgb(255 255 255 / 0%) 0deg,
+      rgb(255 255 255 / 18%) 40deg,
+      rgb(255 255 255 / 0%) 80deg,
+      rgb(255 255 255 / 0%) 180deg,
+      rgb(255 255 255 / 14%) 220deg,
+      rgb(255 255 255 / 0%) 260deg
+    ),
+    repeating-radial-gradient(circle, #111019 0 2px, #1a1828 2px 4px);
+  box-shadow:
+    0 0 0 6px rgb(255 255 255 / 4%),
+    0 30px 80px rgb(0 0 0 / 60%);
+}
+
+.label {
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ink-950) 0 8%, transparent 9%), var(--gradient-brand);
+}

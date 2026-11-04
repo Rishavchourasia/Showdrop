@@ -1,0 +1,99 @@
+.tilt {
+  border-radius: var(--radius-xl);
+}
+
+.ticket {
+  --notch: 14px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 88px 1fr auto;
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(140deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 2%));
+  backdrop-filter: var(--blur-glass);
+  box-shadow: var(--shadow-lg);
+  /* two semicircle "bites" where the ticket tears */
+  mask:
+    radial-gradient(circle var(--notch) at calc(100% - 190px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - 190px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+}
+
+.confirmed {
+  border-color: rgb(198 255 61 / 35%);
+}
+
+.strip {
+  overflow: hidden;
+
+  > * {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-5) var(--space-6);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+
+  div {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: var(--space-3);
+  }
+
+  dt {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-top: 2px;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text);
+  }
+}
+
+.seats {
+  font-family: var(--font-mono);
+  color: var(--color-highlight) !important;
+  word-spacing: 4px;
+}
+
+.stub {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  width: 190px;
+  padding: var(--space-5);
+  border-left: 2px dashed var(--color-border-strong);
+}
+
+@media (max-width: 620px) {
+  .ticket {
+    grid-template-columns: 64px 1fr;
+    mask: none;
+  }
+  .stub {
+    grid-column: 1 / -1;
+    width: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    border-left: none;
+    border-top: 2px dashed var(--color-border-strong);
+  }
+}

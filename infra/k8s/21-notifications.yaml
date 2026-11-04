@@ -1,0 +1,37 @@
+# No Service needed: nothing calls the notifications service. It only pulls from Kafka.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifications
+  namespace: bys
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: notifications }
+  template:
+    metadata:
+      labels: { app: notifications }
+    spec:
+      # By default k8s injects env vars for every Service in the namespace, e.g.
+      # REDIS_PORT=tcp://10.96.x.x:6379 -- which collides with OUR REDIS_PORT
+      # setting (Spring expects a number) and crashes the app. Turn that off.
+      enableServiceLinks: false
+      containers:
+        - name: notifications
+          image: bys-notifications:local
+          imagePullPolicy: Never
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom: { configMapKeyRef: { name: bys-config, key: KAFKA_BOOTSTRAP_SERVERS } }
+          ports:
+            - containerPort: 8081
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8081 }
+            periodSeconds: 5
+            failureThreshold: 36
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8081 }
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits: { memory: 512Mi }

@@ -1,0 +1,6 @@
+# A namespace is a folder for Kubernetes objects. Everything for this app lives
+# in "bys", so `kubectl delete namespace bys` removes all of it in one go.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bys

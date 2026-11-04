@@ -1,0 +1,141 @@
+.poster {
+  --a: var(--cat-music-a);
+  --b: var(--cat-music-b);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  border-radius: inherit;
+  background: linear-gradient(var(--angle), var(--a), var(--b));
+  color: rgb(255 255 255 / 85%);
+
+  /* grain for an analogue, printed-poster feel */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    opacity: 0.18;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+}
+
+.movie {
+  --a: var(--cat-movie-a);
+  --b: var(--cat-movie-b);
+}
+.concert {
+  --a: var(--cat-concert-a);
+  --b: var(--cat-concert-b);
+}
+.comedy {
+  --a: var(--cat-comedy-a);
+  --b: var(--cat-comedy-b);
+  color: rgb(8 7 15 / 70%);
+}
+.theatre {
+  --a: var(--cat-theatre-a);
+  --b: var(--cat-theatre-b);
+}
+.music {
+  --a: var(--cat-music-a);
+  --b: var(--cat-music-b);
+  filter: hue-rotate(var(--hue));
+
+  .titleBlock {
+    filter: hue-rotate(calc(-1 * var(--hue))); /* keep the title text white */
+  }
+}
+
+%blob {
+  position: absolute;
+  z-index: 0;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.75;
+  animation: float 9s ease-in-out infinite;
+}
+.blob1 {
+  @extend %blob;
+  left: var(--blob1-x);
+  top: var(--blob1-y);
+  background: rgb(255 255 255 / 45%);
+  mix-blend-mode: soft-light;
+}
+.blob2 {
+  @extend %blob;
+  left: var(--blob2-x);
+  top: var(--blob2-y);
+  background: rgb(8 7 15 / 55%);
+  animation-delay: -4s;
+}
+
+.motif {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+}
+
+.bar {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eq 1.4s ease-in-out infinite;
+}
+
+@keyframes eq {
+  50% {
+    transform: scaleY(0.45);
+  }
+}
+
+.titleBlock {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14%;
+  padding-top: 40%;
+  background: linear-gradient(transparent, rgb(8 7 15 / 55%));
+  color: #fff;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.thumb .title {
+  font-size: 0.7rem;
+}
+.thumb .kicker {
+  display: none;
+}
+.card .title {
+  font-size: clamp(1rem, 2vw, 1.45rem);
+}
+.hero .title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}

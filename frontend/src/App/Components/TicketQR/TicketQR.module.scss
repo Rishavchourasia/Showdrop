@@ -1,0 +1,59 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.code {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  padding: 10px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--ink-950);
+    shape-rendering: crispEdges;
+    transition: filter var(--duration-slow) var(--ease-out);
+  }
+}
+
+.blurred {
+  filter: blur(6px);
+}
+.sharp {
+  filter: none;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: inherit;
+  background: rgb(8 7 15 / 70%);
+  color: #fff;
+}
+
+.holdRing {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-highlight);
+  border-radius: 50%;
+  color: var(--color-highlight);
+}

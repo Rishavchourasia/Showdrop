@@ -1,0 +1,33 @@
+.perspective {
+  perspective: 900px;
+}
+
+.card {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.glare,
+.holo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.holo {
+  background: var(--gradient-holo);
+  background-size: 250% 250%;
+  mix-blend-mode: color-dodge;
+  animation: gradient-pan 5s ease-in-out infinite;
+}
+
+.card:hover .glare {
+  opacity: 1;
+}
+.card:hover .holo {
+  opacity: 0.55;
+}

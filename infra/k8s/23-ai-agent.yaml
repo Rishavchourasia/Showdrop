@@ -1,0 +1,50 @@
+# The Python AI agent. Stateless (conversations live in Redis, vectors in Qdrant),
+# so it could run several replicas behind this Service just like the backend.
+# The LLM API key and model ID come from the optional "bys-ai" Secret, which
+# deploy.sh creates from your .env file.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-agent
+  namespace: bys
+spec:
+  selector: { app: ai-agent }
+  ports:
+    - port: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-agent
+  namespace: bys
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: ai-agent }
+  template:
+    metadata:
+      labels: { app: ai-agent }
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: ai-agent
+          image: bys-ai-agent:local
+          imagePullPolicy: Never
+          env:
+            - { name: BACKEND_URL, value: "http://backend:8080" }
+            - { name: QDRANT_URL, value: "http://qdrant:6333" }
+            - { name: REDIS_HOST, value: redis }
+            - name: LLM_API_KEY
+              valueFrom:
+                secretKeyRef: { name: bys-ai, key: LLM_API_KEY, optional: true }
+            - name: AGENT_MODEL
+              valueFrom:
+                secretKeyRef: { name: bys-ai, key: AGENT_MODEL, optional: true }
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet: { path: /agent/health, port: 8000 }
+            periodSeconds: 5
+          resources:
+            requests: { cpu: 100m, memory: 384Mi }
+            limits: { memory: 1Gi }

@@ -1,0 +1,25 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.muted {
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+}

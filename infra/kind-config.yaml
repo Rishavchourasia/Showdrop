@@ -1,0 +1,13 @@
+# A local Kubernetes cluster that runs inside Docker containers ("Kubernetes IN Docker").
+# extraPortMappings: forward host port 8088 -> the cluster node's port 30080,
+# where the frontend's NodePort Service listens. So the app is at http://localhost:8088
+# (a different port from docker compose's 3000, so both can run side by side).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: bys
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8088
+        protocol: TCP

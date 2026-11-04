@@ -1,0 +1,17 @@
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Secrets -- NEVER commit these (see .env.example)
+.env
+
+# Build output and dependencies (recreated by mvn / npm / uv)
+target/
+node_modules/
+dist/
+.venv/
+__pycache__/
+.pytest_cache/
+
