@@ -1,0 +1,27 @@
+.flip {
+  perspective: 600px;
+}
+
+.part {
+  display: inline;
+}
+
+.part + .part::before {
+  content: ' ';
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0.26em;
+}
+
+.letter {
+  display: inline-block;
+  transform-origin: 50% 0%; /* hinge at the top edge, like a flap */
+  backface-visibility: hidden;
+}
+
+.accent {
+  color: var(--color-highlight);
+}

@@ -13,6 +13,7 @@ const TOKEN_KEY = 'bys.token';
 const USER_KEY = 'bys.user';
 const chatKey = (userId: number | null) => `bys.chat.${userId ?? 'anon'}`;
 const WAITLIST_KEY = 'bys.musicWaitlist'; // UI-only until the music backend exists
+const INTRO_KEY = 'bys.introSeen'; // the intro curtain plays once per browser session
 
 export interface StoredChat {
   conversationId: string | null;
@@ -84,6 +85,22 @@ export const infoStore = {
   joinWaitlist(email: string): void {
     try {
       localStorage.setItem(WAITLIST_KEY, email);
+    } catch {
+      return;
+    }
+  },
+
+  introSeen(): boolean {
+    try {
+      return sessionStorage.getItem(INTRO_KEY) === '1';
+    } catch {
+      return false;
+    }
+  },
+
+  markIntroSeen(): void {
+    try {
+      sessionStorage.setItem(INTRO_KEY, '1');
     } catch {
       return;
     }

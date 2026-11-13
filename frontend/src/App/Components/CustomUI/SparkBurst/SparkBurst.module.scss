@@ -1,0 +1,32 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.origin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.ring {
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-highlight);
+  border-radius: 50%;
+}
+
+.spark {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-highlight);
+  box-shadow: 0 0 8px rgb(198 255 61 / 80%);
+}

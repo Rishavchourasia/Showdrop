@@ -102,6 +102,139 @@
   font-size: 0.8rem;
 }
 
+/* ---------- compact header (after scrolling past the hero) ---------- */
+.topbar {
+  transition:
+    max-width 420ms var(--ease-out),
+    padding 420ms var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.compact {
+  max-width: 640px;
+  padding-left: var(--space-3);
+}
+
+/* ---------- phone menu: a pile of ticket stubs ---------- */
+.menuButton {
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-highlight);
+  color: var(--color-highlight-contrast);
+  cursor: pointer;
+}
+
+.menuIcon {
+  display: grid;
+  place-items: center;
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: 90px var(--space-5) var(--space-8);
+  overflow: hidden;
+  background: rgb(8 7 15 / 88%);
+  backdrop-filter: blur(14px);
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.stub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  border-radius: 16px;
+  background: var(--gradient-brand);
+  color: #fff;
+  text-decoration: none !important;
+  box-shadow: 0 20px 40px -20px rgb(0 0 0 / 80%);
+  /* two half-circle notches where a real ticket would tear */
+  mask:
+    radial-gradient(circle 10px at calc(100% - 64px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 10px at calc(100% - 64px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+
+  li:nth-child(even) & {
+    background: linear-gradient(120deg, var(--lime-500), var(--lime-300));
+    color: var(--ink-950);
+  }
+
+  svg {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+}
+
+.stubLabel {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 8vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.stubTear {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  right: 64px;
+  border-left: 2px dashed rgb(0 0 0 / 30%);
+}
+
+.menuLogout {
+  align-self: center;
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- reading progress as a row of seats ---------- */
+.seatRow {
+  position: fixed;
+  top: 4px;
+  left: 50%;
+  z-index: 60;
+  display: flex;
+  gap: 4px;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.seatDot {
+  width: 9px;
+  height: 6px;
+  border-radius: 3px 3px 1px 1px;
+  background: rgb(255 255 255 / 12%);
+  transition:
+    background-color 200ms var(--ease-out),
+    transform 300ms var(--ease-spring);
+}
+
+.seatFilled {
+  background: var(--color-highlight);
+  box-shadow: 0 0 6px rgb(198 255 61 / 60%);
+  transform: translateY(-1px) scale(1.15);
+}
+
 /* ---------- page ---------- */
 .content {
   flex: 1;
@@ -170,16 +303,17 @@
 
 @media (max-width: 720px) {
   .topbar {
-    flex-wrap: wrap;
-    border-radius: var(--radius-lg);
     gap: var(--space-2);
   }
-  .nav {
-    order: 3;
-    flex-basis: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scrollbar-width: none;
+  .nav,
+  .desktopOnly {
+    display: none !important;
+  }
+  .menuButton {
+    display: grid;
+  }
+  .seatDot {
+    width: 6px;
   }
   .topbarRight {
     margin-left: auto;

@@ -4,14 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useDispatchOnMount } from '../../Components/CustomHooks/useDispatchOnMount';
 import { useDocumentTitle } from '../../Components/CustomHooks/useDocumentTitle';
-import { Badge, ButtonLink, EmptyState, Icon, Reveal, Tabs, Text } from '../../Components/CustomUI';
+import {
+  Badge,
+  ButtonLink,
+  EmptyState,
+  FlipText,
+  Icon,
+  Reveal,
+  SparkBurst,
+  Tabs,
+  Text,
+} from '../../Components/CustomUI';
 import { EventCard, EventCardSkeleton } from '../../Components/EventCard/EventCard';
 import { LoadError } from '../../Components/LoadError/LoadError';
 import { Equalizer } from '../../Components/MusicVisuals/MusicVisuals';
+import { PosterArt } from '../../Components/PosterArt/PosterArt';
+import { PREVIEW_GIGS } from '../../Constants/musicPreview';
 import { ROUTE_MUSIC } from '../../Constants/RouteConstants';
 import { EVENTS_REQUEST } from '../../Redux/Actions/EventConstants';
 import type { RootState } from '../../Redux/Reducers/reducers';
 import { Hero } from './Hero';
+import { CurtainStage } from './CurtainStage';
+import { TicketRoute } from './TicketRoute';
 import styles from './Events.module.scss';
 
 type Filter = 'all' | 'Movie' | 'Concert' | 'Comedy' | 'Theatre' | 'music';
@@ -46,9 +60,33 @@ export function EventsPage() {
 
   const onFilter = (f: Filter) => (f === 'music' ? navigate(ROUTE_MUSIC) : setFilter(f));
 
+  // The posters that rise out of the stage floor: the real events, then a couple of music previews.
+  const posters = useMemo(
+    () => [
+      ...(list.data ?? []).map((e) => (
+        <PosterArt key={e.id} title={e.title} category={e.category} seed={e.id} size="compact" />
+      )),
+      ...PREVIEW_GIGS.slice(0, 2).map((g) => (
+        <PosterArt key={g.id} title={g.title} category="music" seed={g.id} size="compact" />
+      )),
+    ],
+    [list.data],
+  );
+
   return (
     <>
       <Hero featured={list.data ?? []} />
+
+      {list.data && (
+        <CurtainStage
+          posters={posters}
+          caption={
+            <Text variant="display" className={styles.stageCaption}>
+              Every show in town, <span>one drop away.</span>
+            </Text>
+          }
+        />
+      )}
 
       <section className={styles.section}>
         <div className={styles.sectionHead}>
@@ -56,7 +94,7 @@ export function EventsPage() {
             <Text variant="overline" tone="highlight">
               Now booking
             </Text>
-            <Text variant="display">What&apos;s on</Text>
+            <FlipText className={styles.sectionTitle} parts={[{ text: "What's on" }]} />
           </div>
           <Tabs label="Filter by category" options={FILTERS} value={filter} onChange={onFilter} />
         </div>
@@ -91,6 +129,8 @@ export function EventsPage() {
         )}
       </section>
 
+      <TicketRoute />
+
       <Reveal>
         <section className={styles.musicPromo}>
           <div className={styles.musicPromoGlow} aria-hidden="true" />
@@ -106,9 +146,11 @@ export function EventsPage() {
           </div>
           <div className={styles.musicPromoSide}>
             <Equalizer bars={14} height={64} />
-            <ButtonLink to={ROUTE_MUSIC} variant="primary" shape="pill">
-              Get early access <Icon name="arrowRight" size={16} />
-            </ButtonLink>
+            <SparkBurst>
+              <ButtonLink to={ROUTE_MUSIC} variant="primary" shape="pill">
+                Get early access <Icon name="arrowRight" size={16} />
+              </ButtonLink>
+            </SparkBurst>
           </div>
         </section>
       </Reveal>

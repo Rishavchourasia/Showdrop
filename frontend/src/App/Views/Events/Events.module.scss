@@ -29,6 +29,36 @@
   opacity: 0.6;
 }
 
+.stats {
+  display: flex;
+  gap: var(--space-8);
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+
+  div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+  }
+
+  dt {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+}
+
 .heroCopy {
   display: flex;
   flex-direction: column;
@@ -107,6 +137,8 @@
 
 .stackCard {
   position: absolute;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   top: 50%;
   left: 50%;
   width: 230px;
@@ -153,6 +185,24 @@
   gap: var(--space-4);
   flex-wrap: wrap;
   margin-bottom: var(--space-6);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.stageCaption {
+  max-width: 16ch;
+  margin: 0 auto;
+  text-shadow: 0 10px 40px rgb(0 0 0 / 60%);
+
+  span {
+    color: var(--color-highlight);
+  }
 }
 
 .grid {

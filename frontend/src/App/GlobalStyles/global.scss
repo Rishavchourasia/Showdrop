@@ -34,6 +34,23 @@ body {
   font-feature-settings: 'cv11', 'ss01';
 }
 
+/* Clip sideways overflow, so full-bleed sections (100vw) never cause a horizontal scrollbar. */
+body {
+  overflow-x: clip;
+}
+
+/* Smooth scrolling (Lenis) needs the page to size itself normally. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
 /* Film grain over everything: a subtle texture that stops flat gradients looking cheap. */
 body::after {
   content: '';

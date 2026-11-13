@@ -14,6 +14,7 @@ import {
   TextField,
   TiltCard,
 } from '../../Components/CustomUI';
+import { SoundRing } from '../../Components/Stage/SoundRing';
 import { Equalizer, Vinyl } from '../../Components/MusicVisuals/MusicVisuals';
 import { PosterArt } from '../../Components/PosterArt/PosterArt';
 import { GENRES, MUSIC_FEATURES, PREVIEW_GIGS } from '../../Constants/musicPreview';
@@ -127,6 +128,8 @@ export function MusicPage() {
         </div>
 
         <div className={styles.heroArt}>
+          {/* A circular equalizer around the record: dances to a beat, jumps toward your cursor. */}
+          <SoundRing className={styles.cloud} />
           <div className={styles.pulse} aria-hidden="true" />
           <Vinyl size={300} />
           <div className={styles.nowPlaying}>

@@ -1,0 +1,201 @@
+/* Full-bleed: break out of the page column to span the window. */
+%bleed {
+  position: relative;
+  width: 100vw;
+  margin: var(--space-16) 0 0 calc(50% - 50vw);
+}
+
+.section {
+  @extend %bleed;
+  height: 260svh;
+}
+
+.sectionStill {
+  @extend %bleed;
+  height: 100svh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.backWall {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 70%, rgb(124 92 255 / 30%), transparent 70%),
+    linear-gradient(var(--ink-900), var(--ink-950));
+}
+
+.sweep {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: 60vw;
+  height: 120%;
+  margin-left: -30vw;
+  transform-origin: 50% 0;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 22%), transparent 80%);
+  clip-path: polygon(47% 0, 53% 0, 85% 100%, 15% 100%);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+}
+
+.floor {
+  position: absolute;
+  inset: auto 0 0;
+  height: 26%;
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 3%) 0 2px, transparent 2px 90px),
+    linear-gradient(rgb(124 92 255 / 18%), var(--ink-950));
+  transform: rotateX(55deg);
+  transform-origin: bottom;
+}
+
+.lineup {
+  position: absolute;
+  inset: auto 0 18%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(10px, 2vw, 26px);
+  padding: 0 var(--space-6);
+}
+
+.poster {
+  width: clamp(110px, 15vw, 210px);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 30px 60px -20px rgb(0 0 0 / 80%),
+    0 0 0 1px rgb(255 255 255 / 8%);
+}
+
+.caption {
+  position: absolute;
+  top: 16%;
+  left: 0;
+  right: 0;
+  padding: 0 var(--space-6);
+  text-align: center;
+}
+
+/* ---- the velvet ---- */
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  background:
+    linear-gradient(to bottom, rgb(0 0 0 / 35%), transparent 20%, transparent 80%, rgb(0 0 0 / 55%)),
+    repeating-linear-gradient(90deg, #3a0f5c 0, #5b1a8c 2.5%, #7b2ff7 4%, #5b1a8c 5.5%, #3a0f5c 8%);
+  box-shadow: inset 0 0 120px rgb(0 0 0 / 60%);
+}
+
+.left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.right {
+  right: 0;
+  transform-origin: right center;
+}
+
+.valance {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 9%;
+  background:
+    radial-gradient(circle at 50% 0, transparent 60%, rgb(0 0 0 / 45%) 61%) 0 100% / 80px 30px repeat-x,
+    linear-gradient(#2a0a44, #4a1477);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 60%);
+}
+
+/* ---- the marquee sign ---- */
+.sign {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-10);
+  translate: -50% -50%;
+  border-radius: var(--radius-lg);
+  background: rgb(8 7 15 / 80%);
+  box-shadow:
+    0 0 0 2px rgb(198 255 61 / 35%),
+    0 30px 80px rgb(0 0 0 / 60%);
+}
+
+.signTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Bulbs around the sign: one strip per edge. */
+.bulbs {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+
+  i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber-400);
+    box-shadow: 0 0 10px var(--amber-400);
+    animation: bulb 0.6s steps(1) infinite;
+  }
+}
+
+.edgeTop,
+.edgeBottom {
+  left: 12px;
+  right: 12px;
+}
+.edgeTop {
+  top: 8px;
+}
+.edgeBottom {
+  bottom: 8px;
+}
+
+.edgeLeft,
+.edgeRight {
+  top: 30px;
+  bottom: 30px;
+  flex-direction: column;
+}
+.edgeLeft {
+  left: 8px;
+}
+.edgeRight {
+  right: 8px;
+}
+
+@keyframes bulb {
+  50% {
+    opacity: 0.25;
+    box-shadow: none;
+  }
+}

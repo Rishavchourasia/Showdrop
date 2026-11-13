@@ -1,0 +1,22 @@
+.rig {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.beam {
+  position: absolute;
+  top: -40px;
+  width: 340px;
+  height: 140%;
+  margin-left: -170px;
+  transform-origin: 50% 0;
+  /* a cone: narrow at the lamp, wide and faded at the floor */
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--beam) 55%, transparent), transparent 85%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}

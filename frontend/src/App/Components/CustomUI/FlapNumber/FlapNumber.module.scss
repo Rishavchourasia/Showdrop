@@ -1,0 +1,45 @@
+.board {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.window {
+  position: relative;
+  display: inline-block;
+  height: 1.1em;
+  overflow: hidden;
+  padding: 0 0.12em;
+  border-radius: 6px;
+  background: linear-gradient(var(--color-surface-muted) 50%, rgb(255 255 255 / 10%) 50%);
+  line-height: 1.1em;
+
+  /* the split line across the middle of a flap */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgb(0 0 0 / 55%);
+  }
+}
+
+.strip {
+  display: flex;
+  flex-direction: column;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.3, 0, 0.1, 1);
+
+  span {
+    display: block;
+    height: 1.1em;
+    text-align: center;
+  }
+}
+
+.symbol {
+  margin-left: 2px;
+}

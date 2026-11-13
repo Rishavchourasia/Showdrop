@@ -99,6 +99,23 @@ The app has its own identity, deliberately unlike BookMyShow's red-on-white:
 - **Entrances:** page transitions, kinetic headline, `Reveal` on scroll, the confirmed ticket "printing", `Confetti`.
 - **Number animation:** the total counts up (`AnimatedNumber`) and the countdown ring drains (`ProgressRing`).
 
+Showdrop's own motion set, built around the theatre and the ticket:
+- **Ticket-tear intro** (`Components/TicketIntro`): a ticket springs up, its stub is punched, then it tears along the perforation and the halves fly apart to reveal the site. Once per session, skippable with any input.
+- **Curtain up** (`Views/Events/CurtainStage`): scrolling draws back velvet curtains. A marquee sign with chasing bulbs fades out, a spotlight sweeps the stage, and posters rise out of the floor one by one.
+- **Ticket journey** (`Views/Events/TicketRoute`): a dotted route draws itself as you scroll. A ticket rides its tip and each step lights up as the ticket reaches it.
+- **Stage spotlights** (`Components/Stage/Spotlights`): two beams that swing to follow the cursor and sway when idle.
+- **Sound ring** (`Components/Stage/SoundRing`): a circular equalizer around the Music page's record that dances to a beat and jumps toward the cursor.
+- **Typography and numbers:**
+  - `FlipText`: letters flip down like departure-board tiles.
+  - `FlapNumber`: split-flap digits roll into place.
+  - Hero posters are dealt in face-down and flip over as they land.
+- **Small touches:**
+  - `SparkBurst`: a ring and lime sparks pop from the click point on main buttons.
+  - The header shrinks into a compact pill after the hero.
+  - Reading progress is a row of seats along the top that fills up.
+  - The phone menu is a pile of tilted ticket stubs.
+- **Shared values:** a small set of named easings and springs (`Utils/motion.ts`). Smooth wheel scrolling uses the Lenis library (`Utils/smoothScroll.ts`).
+
 Everything respects the OS **Reduce motion** setting (`MotionConfig reducedMotion="user"` plus a CSS fallback).
 
 ## Music (coming soon, UI only)

@@ -14,7 +14,7 @@ interface PosterArtProps {
   title: string;
   category: string;
   seed: number;
-  size?: 'thumb' | 'card' | 'hero';
+  size?: 'thumb' | 'compact' | 'card' | 'hero';
   showTitle?: boolean;
   className?: string;
 }

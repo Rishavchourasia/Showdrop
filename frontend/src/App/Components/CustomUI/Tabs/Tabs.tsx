@@ -1,6 +1,7 @@
 import { LayoutGroup, motion } from 'motion/react';
 import { useId, type ReactNode } from 'react';
 import { cx } from '../../../Utils/cx';
+import { SPRING_SNAPPY } from '../../../Utils/motion';
 import styles from './Tabs.module.scss';
 
 /*
@@ -39,13 +40,7 @@ export function Tabs<T extends string>({ options, value, onChange, label, size =
               className={cx(styles.tab, active && styles.active)}
               onClick={() => onChange(o.value)}
             >
-              {active && (
-                <motion.span
-                  layoutId="indicator"
-                  className={styles.indicator}
-                  transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                />
-              )}
+              {active && <motion.span layoutId="indicator" className={styles.indicator} transition={SPRING_SNAPPY} />}
               <span className={styles.label}>
                 {o.label}
                 {o.badge}
