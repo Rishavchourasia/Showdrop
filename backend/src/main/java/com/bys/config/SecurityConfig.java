@@ -32,7 +32,7 @@ public class SecurityConfig {
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.POST, "/api/auth/signup", "/api/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/events/**", "/api/shows/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/events/**", "/api/shows/**", "/api/drops/**").permitAll()
                     .requestMatchers("/actuator/health/**", "/actuator/info", "/error").permitAll()
                     .anyRequest().authenticated()) // everything else (bookings, /me) needs a valid token
             // When an anonymous request hits a protected URL, reply 401 with JSON (default is an HTML page).

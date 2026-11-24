@@ -18,9 +18,15 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopics {
 
     public static final String BOOKING_CONFIRMED = "booking.confirmed";
+    public static final String DROP_OPENED = "drop.opened";
 
     @Bean
     public NewTopic bookingConfirmedTopic() {
         return TopicBuilder.name(BOOKING_CONFIRMED).partitions(3).replicas(1).build();
+    }
+
+    @Bean
+    public NewTopic dropOpenedTopic() {
+        return TopicBuilder.name(DROP_OPENED).partitions(1).replicas(1).build();
     }
 }

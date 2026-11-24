@@ -41,9 +41,10 @@ class BookingServiceTest {
     private final UserRepository users = mock(UserRepository.class);
     private final SeatHoldService holds = mock(SeatHoldService.class);
     private final ApplicationEventPublisher events = mock(ApplicationEventPublisher.class);
+    private final DropService drops = mock(DropService.class); // no drop rules unless a test sets them
 
     private final BookingService service =
-            new BookingService(bookings, shows, seats, users, holds, events, 5);
+            new BookingService(bookings, shows, seats, users, holds, events, drops, 5);
 
     private final Show show = mock(Show.class);
 
@@ -113,5 +114,26 @@ class BookingServiceTest {
         assertThatThrownBy(() -> service.create(7L, new CreateBookingRequest(1L, List.of(10L))))
                 .isInstanceOf(ConflictException.class)
                 .hasMessageContaining("held by another customer");
+    }
+
+    @Test
+    void dropShowRefusesHoldWhenItIsNotYourTurn() {
+        doThrow(new ConflictException("It's not your turn yet.")).when(drops).requireTurn(1L, 7L);
+
+        assertThatThrownBy(() -> service.create(7L, new CreateBookingRequest(1L, List.of(10L))))
+                .isInstanceOf(ConflictException.class)
+                .hasMessageContaining("not your turn");
+        verifyNoInteractions(holds); // refused before any seat was touched
+    }
+
+    @Test
+    void successfulHoldUsesUpTheDropPass() {
+        List<Seat> found = List.of(seat(10, "A", 1, SeatStatus.AVAILABLE));
+        when(seats.findByShowIdAndIdIn(eq(1L), anyList())).thenReturn(found);
+        when(holds.holdAll(anyLong(), anyList(), anyString(), any())).thenReturn(true);
+
+        service.create(7L, new CreateBookingRequest(1L, List.of(10L)));
+
+        verify(drops).usePass(1L, 7L); // frees the slot for the next person in line
     }
 }

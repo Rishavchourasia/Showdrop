@@ -150,6 +150,30 @@ All routes are prefixed with `/api`. Request and response bodies are JSON. 🔒 
 | GET | `/bookings/me` | none | My bookings, newest first |
 | GET | `/bookings/{id}` | none | One of my bookings (`404` if it isn't yours) |
 
+### Drop Room: fair timed on-sales
+
+| Method | Route | Login needed? | What it does |
+|---|---|---|---|
+| GET | `/drops` | no | Shows that sell through a drop, with `opensAt` and `state` (`UPCOMING` / `OPEN`) |
+| GET | `/drops/show/{showId}` | no | The room's status: countdown, fans waiting, line length, and **your** place (when logged in) |
+| POST | `/drops/show/{showId}/join` | **yes** | Get in line: the waiting room before opening, the back of the line after |
+| POST | `/drops/show/{showId}/restart?delaySeconds=60` | **yes** | Demo: reset the drop to open again shortly |
+
+How it works:
+1. **Before the drop**, seat holds for the show are refused (`409`). Fans join a waiting room, and joining early gives no advantage.
+2. **At `opensAt`**, everyone waiting is shuffled with `SecureRandom` into a random line. People who join after that go to the back.
+3. **Fans are let in `batch_size` at a time.** Each gets a pass for `window_seconds` to pick seats.
+4. **Holding seats uses up the pass,** and the next person in line is let in automatically. Without a pass, `POST /bookings` returns `409`.
+5. **Kafka:** a `drop.opened` event is published when a drop goes live.
+
+The schedule lives in Postgres (`drops` table, migration V3). The live state lives in Redis:
+- the waiting set
+- the queue as a sorted set
+- the cursor
+- passes with an expiry (TTL)
+
+A short Redis lock makes sure only one backend copy opens or advances a drop, even with 2 replicas on Kubernetes. For demos, the seeded drop (The Midnight Echoes, Mumbai) is re-scheduled to open 2 minutes after the backend starts.
+
 ### Error format (every error)
 
 ```json

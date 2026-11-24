@@ -53,17 +53,19 @@ public class BookingService {
     private final UserRepository users;
     private final SeatHoldService seatHolds;
     private final ApplicationEventPublisher eventPublisher;
+    private final DropService drops;
     private final Duration holdDuration;
 
     public BookingService(BookingRepository bookings, ShowRepository shows, SeatRepository seats,
                           UserRepository users, SeatHoldService seatHolds, ApplicationEventPublisher eventPublisher,
-                          @Value("${app.booking.hold-minutes}") int holdMinutes) {
+                          DropService drops, @Value("${app.booking.hold-minutes}") int holdMinutes) {
         this.bookings = bookings;
         this.shows = shows;
         this.seats = seats;
         this.users = users;
         this.seatHolds = seatHolds;
         this.eventPublisher = eventPublisher;
+        this.drops = drops;
         this.holdDuration = Duration.ofMinutes(holdMinutes);
     }
 
@@ -74,6 +76,9 @@ public class BookingService {
 
         Show show = shows.findById(req.showId())
                 .orElseThrow(() -> new NotFoundException("Show " + req.showId() + " not found"));
+
+        // Shows that sell through a Drop: only people whose turn it is (holding a pass) may hold seats.
+        drops.requireTurn(show.getId(), userId);
 
         List<Seat> requested = seats.findByShowIdAndIdIn(show.getId(), seatIds);
         if (requested.size() != seatIds.size()) {
@@ -97,6 +102,8 @@ public class BookingService {
             throw new ConflictException(
                     "Some of these seats are being held by another customer. Pick different seats or try again in a few minutes.");
         }
+
+        drops.usePass(show.getId(), userId); // turn used: let the next person in line in
 
         log.info("Booking {} PENDING: user {} holds seats {} for {} min",
                 booking.getId(), userId, labels(requested), holdDuration.toMinutes());
